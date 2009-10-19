@@ -14,6 +14,11 @@ Based library is
 module GeoHash
   VERSION = "1.0.0"
   
+  #########
+  # Decode from geohash
+  # 
+  # geohash:: geohash code
+  # return:: decoded bounding box [[north latitude, west longitude],[south latitude, east longitude]]
   def decode(geohash)
     latlng = [[-90.0, 90.0], [-180.0, 180.0]]
     is_lng = 1
@@ -27,6 +32,8 @@ module GeoHash
   end
   module_function :decode
   
+  #########
+  # Encode latitude and longitude into geohash
   def encode(latitude, longitude, precision=12)
     latlng = [latitude, longitude]
     points = [[-90.0, 90.0], [-180.0, 180.0]]
@@ -44,6 +51,8 @@ module GeoHash
   end
   module_function :encode
   
+  #########
+  # Calculate neighbors (8 adjacents) geohash
   def neighbors(geohash)
     [[:top, :right], [:right, :bottom], [:bottom, :left], [:left, :top]].map{ |dirs|
       point = adjacent(geohash, dirs[0])
@@ -52,6 +61,8 @@ module GeoHash
   end
   module_function :neighbors
   
+  #########
+  # Calculate adjacents geohash
   def adjacent(geohash, dir)
     base, lastChr = geohash[0..-2], geohash[-1,1]
     type = (geohash.length % 2)==1 ? :odd : :even
