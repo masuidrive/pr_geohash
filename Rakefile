@@ -5,8 +5,9 @@ require 'hoe'
 
 Hoe.spec 'pr_geohash' do
   developer('Yuichiro MASUI', 'masui@masuidrive.jp')
-
-  # self.rubyforge_name = 'pr_geohashx' # if different than 'pr_geohash'
+  
+  self.extra_rdoc_files = Dir["*.rdoc"]
+  self.readme_file = 'README.rdoc'
 end
 
 # vim: syntax=ruby
