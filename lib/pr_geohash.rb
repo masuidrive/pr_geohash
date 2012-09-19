@@ -64,19 +64,23 @@ module GeoHash
   #########
   # Calculate adjacents geohash
   def adjacent(geohash, dir)
-    base, lastChr = geohash[0..-2], geohash[-1,1]
-    type = (geohash.length % 2)==1 ? :odd : :even
-    if BORDERS[dir][type].include?(lastChr)
-      base = adjacent(base, dir)
+    if geohash == ''
+      geohash
+    else
+      base, lastChr = geohash[0..-2], geohash[-1,1]
+      type = (geohash.length % 2)==1 ? :odd : :even
+      if BORDERS[dir][type].include?(lastChr)
+        base = adjacent(base, dir)
+      end
+      base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
     end
-    base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
   end
   module_function :adjacent
   
   
   BITS = [0x10, 0x08, 0x04, 0x02, 0x01]
   BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz"
-  
+
   NEIGHBORS = {
     :right  => { :even => "bc01fg45238967deuvhjyznpkmstqrwx", :odd => "p0r21436x8zb9dcf5h7kjnmqesgutwvy" },
     :left   => { :even => "238967debc01fg45kmstqrwxuvhjyznp", :odd => "14365h7k9dcfesgujnmqp0r2twvyx8zb" },
