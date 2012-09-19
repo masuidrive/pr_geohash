@@ -70,13 +70,32 @@ module GeoHash
       base = adjacent(base, dir)
     end
     base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
+  rescue TypeError => e
+    coordinates = decode(geohash)
+    if coordinates.flatten.include?(180.0) || coordinates.flatten.include?(-180.0)
+      iter = 1
+      new_geohash = ''
+      geohash.each_char do |char|
+        type = (iter % 2)==1 ? :odd : :even
+        char_index = LONGITUDE_180[type][:from].index(char)
+        new_geohash +=  LONGITUDE_180[type][:to][char_index,1]
+      end
+      new_geohash
+    else
+      raise
+    end
   end
   module_function :adjacent
   
   
   BITS = [0x10, 0x08, 0x04, 0x02, 0x01]
   BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz"
-  
+ 
+  LONGITUDE_180 = {
+  :even => {from: 'bcfguvyz0145hjnp', to: '0145hjnpbcfguvyz'},
+  :odd  => {from: 'prxz028b', to: '028bprxz'}
+}
+
   NEIGHBORS = {
     :right  => { :even => "bc01fg45238967deuvhjyznpkmstqrwx", :odd => "p0r21436x8zb9dcf5h7kjnmqesgutwvy" },
     :left   => { :even => "238967debc01fg45kmstqrwxuvhjyznp", :odd => "14365h7k9dcfesgujnmqp0r2twvyx8zb" },
