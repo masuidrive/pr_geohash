@@ -64,17 +64,15 @@ module GeoHash
   #########
   # Calculate adjacents geohash
   def adjacent(geohash, dir)
-    base, lastChr = geohash[0..-2], geohash[-1,1]
-    type = (geohash.length % 2)==1 ? :odd : :even
-    if BORDERS[dir][type].include?(lastChr)
-      base = adjacent(base, dir)
-    end
-    base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
-  rescue TypeError => e
     if geohash == ''
       geohash
     else
-      raise
+      base, lastChr = geohash[0..-2], geohash[-1,1]
+      type = (geohash.length % 2)==1 ? :odd : :even
+      if BORDERS[dir][type].include?(lastChr)
+        base = adjacent(base, dir)
+      end
+      base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
     end
   end
   module_function :adjacent
