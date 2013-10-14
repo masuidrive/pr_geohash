@@ -66,7 +66,7 @@ module GeoHash
   def adjacent(geohash, dir)
     base, lastChr = geohash[0..-2], geohash[-1,1]
     type = (geohash.length % 2)==1 ? :odd : :even
-    if BORDERS[dir][type].include?(lastChr)
+    if base.length > 0 && BORDERS[dir][type].include?(lastChr)
       base = adjacent(base, dir)
     end
     base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
