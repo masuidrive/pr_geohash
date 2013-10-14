@@ -27,6 +27,10 @@ class PrGeoHashTests < Test::Unit::TestCase
   
   def test_neighbors
     {
+      'z' => ["p", "0", "b", "8", "x", "w", "y", "n"],
+      'zc' => ["zf", "b4", "b1", "b0", "zb", "z8", "z9", "zd"],
+      'zcp' => ["zcr", "b12", "b10", "b0b", "zbz", "zby", "zcn", "zcq"],
+      'dr5r' => ["dr72", "dr78", "dr5x", "dr5w", "dr5q", "dr5n", "dr5p", "dr70"],
       'dqcw5' => ["dqcw7", "dqctg", "dqcw4", "dqcwh", "dqcw6", "dqcwk", "dqctf", "dqctu"],
       'xn774c' => ['xn774f','xn774b','xn7751','xn7749','xn774d','xn7754','xn7750','xn7748'],
       'gcpuvpk' => ['gcpuvps','gcpuvph','gcpuvpm','gcpuvp7','gcpuvpe','gcpuvpt','gcpuvpj','gcpuvp5'],
