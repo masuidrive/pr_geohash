@@ -30,7 +30,10 @@ class PrGeoHashTests < Test::Unit::TestCase
       'dqcw5' => ["dqcw7", "dqctg", "dqcw4", "dqcwh", "dqcw6", "dqcwk", "dqctf", "dqctu"],
       'xn774c' => ['xn774f','xn774b','xn7751','xn7749','xn774d','xn7754','xn7750','xn7748'],
       'gcpuvpk' => ['gcpuvps','gcpuvph','gcpuvpm','gcpuvp7','gcpuvpe','gcpuvpt','gcpuvpj','gcpuvp5'],
-      'c23nb62w' => ['c23nb62x','c23nb62t','c23nb62y','c23nb62q','c23nb62r','c23nb62z','c23nb62v','c23nb62m']
+      'c23nb62w' => ['c23nb62x','c23nb62t','c23nb62y','c23nb62q','c23nb62r','c23nb62z','c23nb62v','c23nb62m'],
+      'bpbp' => ['bpbr', 'bpbq', 'bpbn', 'zzzy', 'zzzz'],
+      '8' => ['b', 'c', '9', '3', '2', 'r', 'x', 'z'],
+      'z' => ['b','8', 'x', 'w', 'y']
     }.each do |geohash, neighbors|
       assert_equal GeoHash.neighbors(geohash).sort, neighbors.sort
     end
