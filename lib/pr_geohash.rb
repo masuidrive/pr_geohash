@@ -57,17 +57,22 @@ module GeoHash
     [[:top, :right], [:right, :bottom], [:bottom, :left], [:left, :top]].map{ |dirs|
       point = adjacent(geohash, dirs[0])
       [point, adjacent(point, dirs[1])]
-    }.flatten
+    }.flatten.compact
   end
   module_function :neighbors
   
   #########
   # Calculate adjacents geohash
   def adjacent(geohash, dir)
+    return if (geohash.nil? || geohash.empty?)
     base, lastChr = geohash[0..-2], geohash[-1,1]
     type = (geohash.length % 2)==1 ? :odd : :even
     if BORDERS[dir][type].include?(lastChr)
       base = adjacent(base, dir)
+      if (base.nil?) then
+        return if(dir == :top || dir == :bottom)
+        base = ''
+      end
     end
     base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
   end
