@@ -41,7 +41,33 @@ class PrGeoHashTests < Test::Unit::TestCase
       ["dqcjq", :top]    => 'dqcjw',
       ["dqcjq", :bottom] => 'dqcjn',
       ["dqcjq", :left]   => 'dqcjm',
-      ["dqcjq", :right]  => 'dqcjr'
+      ["dqcjq", :right]  => 'dqcjr',
+
+      ["r", :right]      => '2',
+      ["x", :right]      => '8',
+      ["g", :right]      => 'u',
+
+      ["2", :left]       => 'r',
+      ["8", :left]       => 'x',
+      ["u", :left]       => 'g',
+
+      ["e", :bottom]     => '7',
+      ["s", :bottom]     => 'k',
+
+      ["7", :top]        => 'e',
+      ["k", :top]        => 's',
+
+      ["rb", :right]     => '20',
+      ["rc", :right]     => '21',
+
+      ["20", :left]      => 'rb',
+      ["21", :left]      => 'rc',
+
+      ["d8", :bottom]    => '6x',
+      ["6x", :top]       => 'd8',
+
+      ["s20", :bottom]   => 'krb',
+      ["krb", :top]      => 's20',
     }.each do |position, hash|
       assert_equal GeoHash.adjacent(*position), hash
     end
