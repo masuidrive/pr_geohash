@@ -64,6 +64,9 @@ module GeoHash
   #########
   # Calculate adjacents geohash
   def adjacent(geohash, dir)
+    if geohash.length == 1
+      return BASE32[NEIGHBORS[dir][:odd].index(geohash),1]
+    end
     base, lastChr = geohash[0..-2], geohash[-1,1]
     type = (geohash.length % 2)==1 ? :odd : :even
     if BORDERS[dir][type].include?(lastChr)
@@ -72,7 +75,6 @@ module GeoHash
     base + BASE32[NEIGHBORS[dir][type].index(lastChr),1]
   end
   module_function :adjacent
-  
   
   BITS = [0x10, 0x08, 0x04, 0x02, 0x01]
   BASE32 = "0123456789bcdefghjkmnpqrstuvwxyz"
